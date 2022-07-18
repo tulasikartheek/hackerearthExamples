@@ -1,0 +1,26 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+       Scanner sc=new Scanner(System.in);
+       int n=sc.nextInt();
+       String[] s=new String[1010];
+       int j=0;
+       s[0]="A";
+       for(int i=1;i<=n;i++){
+           String str="";
+           str=sc.next();
+           for(j=i-1;j>=0;j--){
+               if(s[j].compareTo(str)>=0){
+                   s[j+1]=s[j];
+               }
+               else{
+                   break;
+               }
+           }
+           System.out.println(j);
+           s[j+1]=str;
+       }
+    }
+}

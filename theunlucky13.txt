@@ -1,0 +1,105 @@
+import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+import java.io.PrintWriter;
+
+
+
+class ANK13 {
+
+
+
+static long MOD = (long) ( 1e9 + 9 );
+
+
+
+static long[][] multiply(long[][] A, long [][] B) {
+
+int r1 = A.length;
+
+int c1 = A[0].length;
+
+int r2 = B.length;
+
+int c2 = B[0].length;
+
+if(c1 != r2) throw new IllegalArgumentException();
+
+long[][] C = new long[r1][c2];
+for (int i = 0; i < r1; i++) {
+
+for (int j = 0; j < c1; j++) {
+
+for (int k = 0; k < c2; k++) {
+
+C[i][k] += (A[i][j] * B[j][k]) % MOD;
+
+if(C[i][k] >= MOD) C[i][k] -= MOD;
+
+if(C[i][k] < 0) C[i][k] += MOD;
+
+}
+
+}
+
+}
+
+return C;
+
+}
+
+
+
+static long[][] power(long[][] M, long power) {
+
+long[][] res = M;
+
+long[][] ans = {{1, 0}, {0, 1}};
+while (power > 0) {
+
+if((power & 1) != 0) {
+
+ans = multiply(ans, res);
+
+}
+
+power >>= 1;
+
+res = multiply(res, res);
+
+}
+
+return ans;
+}
+public static void main(String[] args) throws IOException {
+
+long [][] A = new long[][]{ {10}, {1} };
+
+long [][] T = new long[][]{ {10, -1}, {1, 0} };
+
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+PrintWriter pw = new PrintWriter(System.out);
+
+int t = Integer.parseInt(br.readLine());
+
+while (t --> 0) {
+
+long n = Long.parseLong(br.readLine());
+
+long[][] raise = power(T, n);
+
+raise = multiply(raise, A);
+
+System.out.println(raise[1][0]);
+
+}
+
+pw.close();
+
+}
+
+}
